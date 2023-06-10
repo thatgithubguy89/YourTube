@@ -29,6 +29,12 @@ namespace YourTube.Test.Repositories
 
         IFormFile _mockFile = new FormFile(new MemoryStream(new byte[1]), 0, 1, "test", "test");
 
+        List<Favorite> _mockFavorites = new List<Favorite>
+        {
+            new Favorite { Id = 1, VideoId = 1, Username = "test@gmail.com" },
+            new Favorite { Id = 2, VideoId = 2, Username = "test@gmail.com" }
+        };
+
         List<Video> _mockVideos = new List<Video>
         {
             new Video { Id = 1, Title = "test", User = new User { Id = 1 }, Comments = new List<Comment>() },
@@ -130,6 +136,28 @@ namespace YourTube.Test.Repositories
         public async Task GetByIdAsync_GivenInvalidId_ThrowsArgumentOutOfRangeException(int id)
         {
             await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _videoRepository.GetByIdAsync(id));
+        }
+
+        [Fact]
+        public async Task GetFavoriteVideosByUsernameAsync()
+        {
+            await _context.Videos.AddRangeAsync(_mockVideos);
+            await _context.Favorites.AddRangeAsync(_mockFavorites);
+            await _context.SaveChangesAsync();
+
+            var result = await _videoRepository.GetFavoriteVideosByUsernameAsync("test@gmail.com");
+
+            Assert.Equal(2, result.Count);
+            Assert.IsType<List<Video>>(result);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task GetFavoriteVideosByUsernameAsync_GivenInvalidUsername_ThrowsArgumentNullException(string username)
+        {
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _videoRepository.GetFavoriteVideosByUsernameAsync(username));
         }
     }
 }

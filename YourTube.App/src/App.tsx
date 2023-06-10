@@ -7,6 +7,7 @@ import { UserProfile } from "./pages/UserProfile";
 import { AddVideo } from "./pages/AddVideo";
 import { VideoDetail } from "./pages/VideoDetail";
 import { NavBar } from "./components/navigation/NavBar";
+import { Favorites } from "./pages/Favorites";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/favorites" element={<Favorites />} />
           <Route path="/signin" element={<Signin />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/addvideo/:userid" element={<AddVideo />} />

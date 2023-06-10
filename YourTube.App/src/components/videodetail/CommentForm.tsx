@@ -32,7 +32,11 @@ export const CommentForm = ({ videoId }: Props) => {
         placeholder="Add a comment..."
         onChange={(e) => setContent(e.target.value)}
       />
-      <button className="btn btn-primary mt-2" type="submit">
+      <button
+        className="btn btn-primary mt-2"
+        type="submit"
+        disabled={username ? false : true}
+      >
         Comment
       </button>
     </form>

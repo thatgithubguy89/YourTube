@@ -7,6 +7,7 @@ import { Comments } from "./Comments";
 import { Comment } from "../../models/Comment";
 import { Likes } from "./Likes";
 import { Dislikes } from "./Dislikes";
+import { SaveButton } from "./SaveButton";
 
 export const Player = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,6 +64,7 @@ export const Player = () => {
         <small className="me-5">{video.views} Views</small>
         <Likes likes={video.liked} videoId={video.id} />
         <Dislikes dislikes={video.disliked} videoId={video.id} />
+        <SaveButton videoId={Number(id)} />
         <Comments comments={comments} videoId={Number(id)} />
       </div>
     );

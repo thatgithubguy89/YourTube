@@ -12,7 +12,7 @@ using YourTube.Api.Data;
 namespace YourTube.Api.Data.Migrations
 {
     [DbContext(typeof(YourTubeContext))]
-    [Migration("20230606120351_init")]
+    [Migration("20230610141020_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -53,6 +53,33 @@ namespace YourTube.Api.Data.Migrations
                     b.HasIndex("VideoId");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("YourTube.Api.Models.Favorite", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastEditTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Favorites");
                 });
 
             modelBuilder.Entity("YourTube.Api.Models.Like", b =>
@@ -175,6 +202,7 @@ namespace YourTube.Api.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("VideoId")
@@ -189,6 +217,17 @@ namespace YourTube.Api.Data.Migrations
                 {
                     b.HasOne("YourTube.Api.Models.Video", "Video")
                         .WithMany("Comments")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Video");
+                });
+
+            modelBuilder.Entity("YourTube.Api.Models.Favorite", b =>
+                {
+                    b.HasOne("YourTube.Api.Models.Video", "Video")
+                        .WithMany("Favorites")
                         .HasForeignKey("VideoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -232,6 +271,8 @@ namespace YourTube.Api.Data.Migrations
             modelBuilder.Entity("YourTube.Api.Models.Video", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Favorites");
 
                     b.Navigation("Likes");
                 });

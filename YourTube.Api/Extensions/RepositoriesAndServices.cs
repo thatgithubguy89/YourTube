@@ -9,6 +9,7 @@ namespace YourTube.Api.Extensions
         public static IServiceCollection AddRepositoriesAndServices(this IServiceCollection services)
         {
             services.AddScoped<ICommentRepository, CommentRepository>();
+            services.AddScoped<IFavoriteRepository, FavoriteRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();

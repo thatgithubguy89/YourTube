@@ -70,6 +70,20 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Comments')
+BEGIN
+	CREATE TABLE [Favorites] (
+		[Id] int NOT NULL IDENTITY,
+		[VideoId] int NOT NULL,
+		[Username] nvarchar(max) NULL,
+		[CreateTime] datetime2 NOT NULL,
+		[LastEditTime] datetime2 NOT NULL,
+		CONSTRAINT [PK_Favorites] PRIMARY KEY ([Id]),
+		CONSTRAINT [FK_Favorites_Videos_VideoId] FOREIGN KEY ([VideoId]) REFERENCES [Videos] ([Id]) ON DELETE CASCADE
+	);
+END
+GO
+
 IF NOT EXISTS(SELECT * FROM sys.tables WHERE name = 'Likes')
 BEGIN
 	CREATE TABLE [Likes] (
@@ -85,10 +99,13 @@ BEGIN
 		CONSTRAINT [FK_Likes_Users_UserId] FOREIGN KEY ([UserId]) REFERENCES [Users] ([Id]),
 		CONSTRAINT [FK_Likes_Videos_VideoId] FOREIGN KEY ([VideoId]) REFERENCES [Videos] ([Id]) ON DELETE CASCADE
 	);
-	END
+END
 GO
 
 CREATE INDEX [IX_Comments_VideoId] ON [Comments] ([VideoId]);
+GO
+
+CREATE INDEX [IX_Favorites_VideoId] ON [Favorites] ([VideoId]);
 GO
 
 CREATE INDEX [IX_Likes_UserId] ON [Likes] ([UserId]);

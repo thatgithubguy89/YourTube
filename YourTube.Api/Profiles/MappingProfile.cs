@@ -9,6 +9,7 @@ namespace YourTube.Api.Profiles
         public MappingProfile()
         {
             CreateMap<Comment, CommentDto>().ReverseMap();
+            CreateMap<Favorite, FavoriteDto>().ReverseMap();
             CreateMap<Like, LikeDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Video, VideoDto>().ReverseMap();

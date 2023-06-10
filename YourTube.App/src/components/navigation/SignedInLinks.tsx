@@ -20,6 +20,11 @@ export const SignedInLinks = () => {
         </a>
       </li>
       <li className="nav-item">
+        <a className="nav-link" href="/favorites">
+          Favorites
+        </a>
+      </li>
+      <li className="nav-item">
         <a className="nav-link" href="/userprofile">
           <img
             style={{

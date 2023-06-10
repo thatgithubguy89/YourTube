@@ -82,5 +82,25 @@ namespace YourTube.Api.Repositories
 
             return video;
         }
+
+        public async Task<List<Video>> GetFavoriteVideosByUsernameAsync(string username)
+        {
+            if (string.IsNullOrWhiteSpace(username))
+                throw new ArgumentNullException(nameof(username));
+
+            var videos = new List<Video>();
+            var favorites = await _context.Favorites.Where(f => f.Username == username)
+                                                    .ToListAsync();
+
+            foreach (var favorite in favorites)
+            {
+                var video = await _context.Videos.Include(v => v.User)
+                                                 .FirstOrDefaultAsync(v => v.Id == favorite.VideoId);
+                if (video != null)
+                    videos.Add(video);
+            }
+
+            return videos;
+        }
     }
 }

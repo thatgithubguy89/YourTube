@@ -11,6 +11,7 @@ namespace YourTube.Api.Data
         { }
 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Like> Likes { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<VideoView> VideoViews { get; set; }
@@ -54,6 +55,12 @@ namespace YourTube.Api.Data
                 .HasMany(v => v.Likes)
                 .WithOne(c => c.Video)
                 .HasForeignKey(c => c.VideoId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Video>()
+                .HasMany(v => v.Favorites)
+                .WithOne(f => f.Video)
+                .HasForeignKey(f => f.VideoId)
                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
