@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { NotFound } from "../components/common/NotFound";
 
 export const AddVideo = () => {
   const [title, setTitle] = useState("");
@@ -36,33 +37,37 @@ export const AddVideo = () => {
       .catch((error) => console.log(error));
   };
 
-  return (
-    <>
-      <form onSubmit={handleSubmit} className="container w-50">
-        <div className="form-group">
-          <div className="form-floating mb-3">
-            <input
-              type="text"
-              className="form-control"
-              id="floatingInput"
-              placeholder="title"
-              onChange={(e) => setTitle(e.target.value)}
-            />
-            <label htmlFor="floatingInput">Title</label>
+  if (!token) {
+    return <NotFound />;
+  } else {
+    return (
+      <>
+        <form onSubmit={handleSubmit} className="container w-50">
+          <div className="form-group">
+            <div className="form-floating mb-3">
+              <input
+                type="text"
+                className="form-control"
+                id="floatingInput"
+                placeholder="title"
+                onChange={(e) => setTitle(e.target.value)}
+              />
+              <label htmlFor="floatingInput">Title</label>
+            </div>
           </div>
-        </div>
-        <div className="form-group">
-          <input
-            className="form-control"
-            type="file"
-            id="formFile"
-            onChange={handleFileChange}
-          />
-        </div>
-        <button type="submit" className="btn btn-primary mt-3">
-          Submit
-        </button>
-      </form>
-    </>
-  );
+          <div className="form-group">
+            <input
+              className="form-control"
+              type="file"
+              id="formFile"
+              onChange={handleFileChange}
+            />
+          </div>
+          <button type="submit" className="btn btn-primary mt-3">
+            Submit
+          </button>
+        </form>
+      </>
+    );
+  }
 };

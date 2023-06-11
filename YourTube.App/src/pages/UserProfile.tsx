@@ -6,6 +6,7 @@ import { VideosList } from "../components/profile/VideosList";
 import { useNavigate } from "react-router-dom";
 import { DeleteUserButton } from "../components/profile/DeleteUserButton";
 import { Loader } from "../components/common/Loader";
+import { NotFound } from "../components/common/NotFound";
 
 export const UserProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -30,21 +31,25 @@ export const UserProfile = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  if (isLoading) {
-    return <Loader />;
+  if (!token) {
+    return <NotFound />;
   } else {
-    return (
-      <div className="container mt-5">
-        {user.username}
-        <button
-          onClick={() => navigate(`/addvideo/${user.id}`)}
-          className="btn btn-primary ms-5"
-        >
-          Add Video
-        </button>
-        <DeleteUserButton id={user.id} />
-        <VideosList videos={videos} />
-      </div>
-    );
+    if (isLoading) {
+      return <Loader />;
+    } else {
+      return (
+        <div className="container mt-5">
+          {user.username}
+          <button
+            onClick={() => navigate(`/addvideo/${user.id}`)}
+            className="btn btn-primary ms-5"
+          >
+            Add Video
+          </button>
+          <DeleteUserButton id={user.id} />
+          <VideosList videos={videos} />
+        </div>
+      );
+    }
   }
 };
