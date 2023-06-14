@@ -57,7 +57,9 @@ namespace YourTube.Api.Repositories
             if (videos != null)
                 return videos;
 
-            videos = await _context.Videos.Include(v => v.User)
+            videos = await _context.Videos.OrderByDescending(v => v.Views)
+                                          .OrderByDescending(v => v.CreateTime)
+                                          .Include(v => v.User)
                                           .ToListAsync();
 
             _cacheService.SetItems("all-videos", videos);
@@ -99,6 +101,9 @@ namespace YourTube.Api.Repositories
                 if (video != null)
                     videos.Add(video);
             }
+
+            videos = videos.OrderByDescending(v => v.CreateTime)
+                           .ToList();
 
             return videos;
         }

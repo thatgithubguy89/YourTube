@@ -120,9 +120,31 @@ namespace YourTube.Test.Repositories
         }
 
         [Fact]
+        public async Task GetAllAsync_ReturnCachedVideos()
+        {
+            _mockCacheService.Setup(c => c.GetItems(It.IsAny<string>())).Returns(_mockVideos);
+
+            var result = await _videoRepository.GetAllAsync();
+
+            Assert.Equal(3, result.Count);
+            Assert.IsType<List<Video>>(result);
+        }
+
+        [Fact]
         public async Task GetByIdAsync()
         {
             await _videoRepository.AddAsync(_mockVideo);
+
+            var result = await _videoRepository.GetByIdAsync(_mockVideo.Id);
+
+            Assert.Equal(1, result.Id);
+            Assert.IsType<Video>(result);
+        }
+
+        [Fact]
+        public async Task GetByIdAsync_ReturnCachedVideo()
+        {
+            _mockCacheService.Setup(c => c.GetItem(It.IsAny<string>())).Returns(_mockVideo);
 
             var result = await _videoRepository.GetByIdAsync(_mockVideo.Id);
 
