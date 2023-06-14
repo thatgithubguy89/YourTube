@@ -2,6 +2,7 @@
 using YourTube.Api.Data;
 using YourTube.Api.Interfaces;
 using YourTube.Api.Models;
+using YourTube.Api.Services;
 
 namespace YourTube.Api.Repositories
 {
@@ -9,11 +10,13 @@ namespace YourTube.Api.Repositories
     {
         private readonly YourTubeContext _context;
         private readonly IVideoRepository _videoRepository;
+        private readonly ICacheService<Video> _cacheService;
 
-        public LikeRepository(YourTubeContext context, IVideoRepository videoRepository) : base(context)
+        public LikeRepository(YourTubeContext context, IVideoRepository videoRepository, ICacheService<Video> cacheService) : base(context)
         {
             _context = context;
             _videoRepository = videoRepository;
+            _cacheService = cacheService;
         }
 
         public override async Task<Like> AddAsync(Like like)
@@ -35,6 +38,8 @@ namespace YourTube.Api.Repositories
 
             var createdLike = await _context.Likes.AddAsync(like);
             await _context.SaveChangesAsync();
+
+            _cacheService.DeleteItems($"video-{like.VideoId}");
 
             return createdLike.Entity;
         }

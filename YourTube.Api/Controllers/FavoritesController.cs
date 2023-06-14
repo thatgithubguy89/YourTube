@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YourTube.Api.Interfaces;
 using YourTube.Api.Models;
@@ -6,6 +7,7 @@ using YourTube.Api.Models.Dtos;
 
 namespace YourTube.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase

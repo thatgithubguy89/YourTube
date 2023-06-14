@@ -4,6 +4,7 @@ using YourTube.Api.Data;
 using YourTube.Api.Interfaces;
 using YourTube.Api.Models;
 using YourTube.Api.Repositories;
+using YourTube.Api.Services;
 
 namespace YourTube.Test.Repositories
 {
@@ -11,6 +12,7 @@ namespace YourTube.Test.Repositories
     {
         ILikeRepository _likeRepository;
         Mock<IVideoRepository> _mockVideoRepository;
+        Mock<ICacheService<Video>> _mockCacheService;
         YourTubeContext _context;
         DbContextOptions<YourTubeContext> _options = new DbContextOptionsBuilder<YourTubeContext>()
             .UseInMemoryDatabase("LikeRepositoryTests")
@@ -28,7 +30,10 @@ namespace YourTube.Test.Repositories
             _mockVideoRepository.Setup(v => v.GetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult(_mockVideo));
             _mockVideoRepository.Setup(v => v.UpdateAsync(It.IsAny<Video>()));
 
-            _likeRepository = new LikeRepository(_context, _mockVideoRepository.Object);
+            _mockCacheService = new Mock<ICacheService<Video>>();
+            _mockCacheService.Setup(c => c.DeleteItems(It.IsAny<string>()));
+
+            _likeRepository = new LikeRepository(_context, _mockVideoRepository.Object, _mockCacheService.Object);
 
             _context.Database.EnsureCreated();
         }
