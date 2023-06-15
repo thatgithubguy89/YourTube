@@ -15,6 +15,11 @@ export const NavBar = () => {
             <ul className="navbar-nav me-auto">
               {!token && <SignedOutLinks />}
               {token && <SignedInLinks />}
+              <li className="nav-item">
+                <a className="nav-link" href="/trending">
+                  Trending
+                </a>
+              </li>
             </ul>
           </div>
         </div>

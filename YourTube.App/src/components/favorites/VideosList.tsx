@@ -48,7 +48,7 @@ export const VideosList = ({ videos }: Props) => {
                 />
                 <div>
                   <p>
-                    {video.title}
+                    {video.title} -{" "}
                     {video.createTime.toString().substring(0, 10)}
                     <i
                       style={{ cursor: "pointer" }}

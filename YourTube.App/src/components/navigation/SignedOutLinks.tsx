@@ -6,11 +6,6 @@ export const SignedOutLinks = () => {
           Sign In
         </a>
       </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/trending">
-          Trending
-        </a>
-      </li>
     </div>
   );
 };

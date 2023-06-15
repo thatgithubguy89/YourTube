@@ -60,7 +60,7 @@ namespace YourTube.Api.Services
 
             var token = JsonSerializer.Deserialize<TokenResponse>(response.Content);
 
-            return token.Access_token;
+            return token.access_token;
         }
     }
 }
