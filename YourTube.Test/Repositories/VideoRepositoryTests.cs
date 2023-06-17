@@ -37,9 +37,9 @@ namespace YourTube.Test.Repositories
 
         List<Video> _mockVideos = new List<Video>
         {
-            new Video { Id = 1, Title = "test", User = new User { Id = 1 }, Comments = new List<Comment>() },
-            new Video { Id = 2, Title = "test", User = new User { Id = 2 }, Comments = new List<Comment>() },
-            new Video { Id = 3, Title = "test", User = new User { Id = 3 }, Comments = new List<Comment>() }
+            new Video { Id = 1, Title = "test 1", User = new User { Id = 1 }, Comments = new List<Comment>() },
+            new Video { Id = 2, Title = "test 2", User = new User { Id = 2 }, Comments = new List<Comment>() },
+            new Video { Id = 3, Title = "test 3", User = new User { Id = 3 }, Comments = new List<Comment>() }
         };
 
         public VideoRepositoryTests()
@@ -127,6 +127,34 @@ namespace YourTube.Test.Repositories
             var result = await _videoRepository.GetAllAsync();
 
             Assert.Equal(3, result.Count);
+            Assert.IsType<List<Video>>(result);
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task GetAllVideosAsync_NoSearchPhrase(string searchPhrase)
+        {
+            await _context.AddRangeAsync(_mockVideos);
+            await _context.SaveChangesAsync();
+
+            var result = await _videoRepository.GetAllVideosAsync(searchPhrase);
+
+            Assert.Equal(3, result.Count);
+            Assert.IsType<List<Video>>(result);
+        }
+
+        [Fact]
+        public async Task GetAllVideosAsync_WithSearchPhrase()
+        {
+            await _context.AddRangeAsync(_mockVideos);
+            await _context.SaveChangesAsync();
+
+            var result = await _videoRepository.GetAllVideosAsync("test 2");
+
+            Assert.Single(result);
+            Assert.Equal(2, result[0].Id);
             Assert.IsType<List<Video>>(result);
         }
 

@@ -22,16 +22,16 @@ namespace YourTube.Api.Controllers
             _videoRepository = videoRepository;
         }
 
-        [HttpGet]
+        [HttpGet("getall/{searchPhrase?}")]
         [ProducesResponseType(typeof(List<VideoDto>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> GetAll()
+        public async Task<ActionResult> GetAll(string? searchPhrase)
         {
             try
             {
                 _logger.LogInformation("Getting all videos");
 
-                var videos = await _videoRepository.GetAllAsync();
+                var videos = await _videoRepository.GetAllVideosAsync(searchPhrase);
 
                 return Ok(_mapper.Map<List<VideoDto>>(videos));
             }

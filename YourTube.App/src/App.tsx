@@ -9,14 +9,17 @@ import { VideoDetail } from "./pages/VideoDetail";
 import { NavBar } from "./components/navigation/NavBar";
 import { Favorites } from "./pages/Favorites";
 import { Trending } from "./pages/Trending";
+import { SearchBox } from "./components/common/SearchBox";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <NavBar />
+        <SearchBox />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/:searchphrase" element={<Home />} />
           <Route path="/userprofile" element={<UserProfile />} />
           <Route path="/favorites" element={<Favorites />} />
           <Route path="/signin" element={<Signin />} />

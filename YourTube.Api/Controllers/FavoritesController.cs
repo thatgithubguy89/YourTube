@@ -7,7 +7,7 @@ using YourTube.Api.Models.Dtos;
 
 namespace YourTube.Api.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase

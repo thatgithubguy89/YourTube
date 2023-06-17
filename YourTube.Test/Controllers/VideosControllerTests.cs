@@ -31,10 +31,10 @@ namespace YourTube.Test.Controllers
         [Fact]
         public async Task GetAll()
         {
-            _mockVideoRepository.Setup(v => v.GetAllAsync()).Returns(Task.FromResult(new List<Video>()));
+            _mockVideoRepository.Setup(v => v.GetAllVideosAsync(It.IsAny<string>())).Returns(Task.FromResult(new List<Video>()));
             var _videosController = new VideosController(_mockLogger.Object, _mapper, _mockVideoRepository.Object);
 
-            var actionResult = await _videosController.GetAll();
+            var actionResult = await _videosController.GetAll("test");
             var result = actionResult as OkObjectResult;
 
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
@@ -44,10 +44,10 @@ namespace YourTube.Test.Controllers
         [Fact]
         public async Task GetAll_Failure_ReturnsInternalServerError()
         {
-            _mockVideoRepository.Setup(v => v.GetAllAsync()).Throws(new Exception());
+            _mockVideoRepository.Setup(v => v.GetAllVideosAsync(It.IsAny<string>())).Throws(new Exception());
             var _videosController = new VideosController(_mockLogger.Object, _mapper, _mockVideoRepository.Object);
 
-            var actionResult = await _videosController.GetAll();
+            var actionResult = await _videosController.GetAll("test");
             var result = actionResult as ObjectResult;
 
             Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);

@@ -51,6 +51,14 @@ namespace YourTube.Api.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public async Task<List<Video>> GetAllVideosAsync(string? searchPhrase)
+        {
+            if (string.IsNullOrWhiteSpace(searchPhrase))
+                return await GetAllAsync();
+
+            return await GetAllBySearchPhraseAsync(searchPhrase);
+        }
+
         public override async Task<List<Video>> GetAllAsync()
         {
             var videos = _cacheService.GetItems("all-videos");
@@ -63,6 +71,24 @@ namespace YourTube.Api.Repositories
                                           .ToListAsync();
 
             _cacheService.SetItems("all-videos", videos);
+
+            return videos;
+        }
+
+        private async Task<List<Video>> GetAllBySearchPhraseAsync(string searchPhrase)
+        {
+            if (string.IsNullOrWhiteSpace(searchPhrase))
+                throw new ArgumentNullException(nameof(searchPhrase));
+
+            var words = searchPhrase.Split(" ").ToList();
+
+            var videos = await GetAllAsync();
+            videos.RemoveAll(v => string.IsNullOrWhiteSpace(v.Title));
+
+            foreach (var word in words)
+            {
+                videos = videos.Where(v => v.Title.ToLower().Contains(word.ToLower())).ToList();
+            }
 
             return videos;
         }

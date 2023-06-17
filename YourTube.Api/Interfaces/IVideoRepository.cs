@@ -6,6 +6,7 @@ namespace YourTube.Api.Interfaces
     public interface IVideoRepository : IRepository<Video>
     {
         Task AddVideoAsync(AddVideoRequest addVideoRequest);
+        Task<List<Video>> GetAllVideosAsync(string? searchPhrase);
         Task<List<Video>> GetFavoriteVideosByUsernameAsync(string username);
     }
 }
