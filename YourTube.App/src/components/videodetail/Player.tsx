@@ -65,8 +65,8 @@ export const Player = () => {
           ></video>
         </div>
         <small className="me-5">{video.views} Views</small>
-        {tags.map((tag) => (
-          <small className="me-3">
+        {tags.map((tag, index) => (
+          <small key={index} className="me-3">
             #{tag.name}
             {"     "}
           </small>

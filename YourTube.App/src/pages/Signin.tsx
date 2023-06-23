@@ -32,7 +32,7 @@ export const Signin = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="container w-50">
+      <form onSubmit={handleSubmit} className="container w-50 mt-5">
         <div className="form-group">
           <div className="form-floating mb-3">
             <input

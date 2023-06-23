@@ -7,7 +7,6 @@ using YourTube.Api.Models.Dtos;
 
 namespace YourTube.Api.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase
@@ -26,6 +25,7 @@ namespace YourTube.Api.Controllers
             _logger = logger;
         }
 
+        [Authorize]
         [HttpGet("{username}")]
         [ProducesResponseType(typeof(VideoDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -51,6 +51,7 @@ namespace YourTube.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -76,6 +77,7 @@ namespace YourTube.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -10,6 +10,7 @@ import { NavBar } from "./components/navigation/NavBar";
 import { Favorites } from "./pages/Favorites";
 import { Trending } from "./pages/Trending";
 import { SearchBox } from "./components/common/SearchBox";
+import { NotFound } from "./components/common/NotFound";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/trending" element={<Trending />} />
           <Route path="/addvideo/:userid" element={<AddVideo />} />
           <Route path="/videodetail/:id" element={<VideoDetail />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
