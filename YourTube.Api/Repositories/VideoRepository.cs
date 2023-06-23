@@ -14,13 +14,15 @@ namespace YourTube.Api.Repositories
         private readonly IFileService _fileService;
         private readonly ICacheService<Video> _cacheService;
         private readonly IMapper _mapper;
+        private readonly ITagRepository _tagRepository;
 
-        public VideoRepository(YourTubeContext context, IFileService fileService, ICacheService<Video> cacheService, IMapper mapper) : base(context)
+        public VideoRepository(YourTubeContext context, IFileService fileService, ICacheService<Video> cacheService, IMapper mapper, ITagRepository tagRepository) : base(context)
         {
             _context = context;
             _fileService = fileService;
             _cacheService = cacheService;
             _mapper = mapper;
+            _tagRepository = tagRepository;
         }
 
         public async Task AddVideoAsync(AddVideoRequest addVideoRequest)
@@ -33,8 +35,10 @@ namespace YourTube.Api.Repositories
 
             _cacheService.DeleteItems("all-videos");
 
-            await _context.Videos.AddAsync(_mapper.Map<Video>(video));
+            var createdVideo = await _context.Videos.AddAsync(_mapper.Map<Video>(video));
             await _context.SaveChangesAsync();
+
+            await _tagRepository.AddTagsForVideoAsync(_mapper.Map<List<Tag>>(addVideoRequest.Tags), createdVideo.Entity.Id);
         }
 
         public override async Task DeleteAsync(Video video)
@@ -103,6 +107,7 @@ namespace YourTube.Api.Repositories
                 return video;
 
             video = await _context.Videos.Include(v => v.Comments)
+                                         .Include(v => v.Tags)
                                          .Include(v => v.User)
                                          .FirstOrDefaultAsync(v => v.Id == id);
 

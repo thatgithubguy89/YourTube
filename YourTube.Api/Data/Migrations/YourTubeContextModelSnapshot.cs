@@ -117,6 +117,33 @@ namespace YourTube.Api.Data.Migrations
                     b.ToTable("Likes");
                 });
 
+            modelBuilder.Entity("YourTube.Api.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("LastEditTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("VideoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VideoId");
+
+                    b.ToTable("Tags");
+                });
+
             modelBuilder.Entity("YourTube.Api.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -247,6 +274,17 @@ namespace YourTube.Api.Data.Migrations
                     b.Navigation("Video");
                 });
 
+            modelBuilder.Entity("YourTube.Api.Models.Tag", b =>
+                {
+                    b.HasOne("YourTube.Api.Models.Video", "Video")
+                        .WithMany("Tags")
+                        .HasForeignKey("VideoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Video");
+                });
+
             modelBuilder.Entity("YourTube.Api.Models.Video", b =>
                 {
                     b.HasOne("YourTube.Api.Models.User", "User")
@@ -272,6 +310,8 @@ namespace YourTube.Api.Data.Migrations
                     b.Navigation("Favorites");
 
                     b.Navigation("Likes");
+
+                    b.Navigation("Tags");
                 });
 #pragma warning restore 612, 618
         }

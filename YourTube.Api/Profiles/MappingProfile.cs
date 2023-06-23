@@ -11,6 +11,7 @@ namespace YourTube.Api.Profiles
             CreateMap<Comment, CommentDto>().ReverseMap();
             CreateMap<Favorite, FavoriteDto>().ReverseMap();
             CreateMap<Like, LikeDto>().ReverseMap();
+            CreateMap<Tag, TagDto>().ReverseMap();
             CreateMap<User, UserDto>().ReverseMap();
             CreateMap<Video, VideoDto>().ReverseMap();
             CreateMap<VideoView, VideoViewDto>().ReverseMap();

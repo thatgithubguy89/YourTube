@@ -6,6 +6,9 @@ import { NotFound } from "../components/common/NotFound";
 export const AddVideo = () => {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState<Blob>(new Blob());
+  const [tagOne, setTagOne] = useState("");
+  const [tagTwo, setTagTwo] = useState("");
+  const [tagThree, setTagThree] = useState("");
   const { userid } = useParams();
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -24,6 +27,7 @@ export const AddVideo = () => {
         userId: userid,
       },
       file: file,
+      tags: [{ name: tagOne }, { name: tagTwo }, { name: tagThree }],
     };
 
     axios
@@ -42,7 +46,7 @@ export const AddVideo = () => {
   } else {
     return (
       <>
-        <form onSubmit={handleSubmit} className="container w-50">
+        <form onSubmit={handleSubmit} className="container w-50 mt-5">
           <div className="form-group">
             <div className="form-floating mb-3">
               <input
@@ -61,6 +65,23 @@ export const AddVideo = () => {
               type="file"
               id="formFile"
               onChange={handleFileChange}
+            />
+          </div>
+          <div className="input-group mt-3">
+            <input
+              className="form-control w-25 me-2"
+              type="text"
+              onChange={(e) => setTagOne(e.target.value)}
+            />
+            <input
+              className="form-control w-25 me-2"
+              type="text"
+              onChange={(e) => setTagTwo(e.target.value)}
+            />
+            <input
+              className="form-control w-25"
+              type="text"
+              onChange={(e) => setTagThree(e.target.value)}
             />
           </div>
           <button type="submit" className="btn btn-primary mt-3">

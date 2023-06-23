@@ -19,6 +19,7 @@ namespace YourTube.Test.Repositories
         IVideoRepository _videoRepository;
         Mock<ICacheService<Video>> _mockCacheService;
         Mock<IFileService> _mockFileService;
+        Mock<ITagRepository> _mockTagRepository;
         YourTubeContext _context;
         IMapper _mapper;
         DbContextOptions<YourTubeContext> _options = new DbContextOptionsBuilder<YourTubeContext>()
@@ -58,7 +59,10 @@ namespace YourTube.Test.Repositories
             _mockCacheService.Setup(c => c.SetItems(It.IsAny<string>(), It.IsAny<List<Video>>()));
             _mockCacheService.Setup(c => c.GetItems(It.IsAny<string>())).Returns((List<Video>)null);
 
-            _videoRepository = new VideoRepository(_context, _mockFileService.Object, _mockCacheService.Object, _mapper);
+            _mockTagRepository = new Mock<ITagRepository>();
+            _mockTagRepository.Setup(t => t.AddTagsForVideoAsync(It.IsAny<List<Tag>>(), It.IsAny<int>()));
+
+            _videoRepository = new VideoRepository(_context, _mockFileService.Object, _mockCacheService.Object, _mapper, _mockTagRepository.Object);
 
             _context.Database.EnsureCreated();
         }

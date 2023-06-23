@@ -8,6 +8,7 @@ namespace YourTube.Api.Models
         {
             Comments = new HashSet<Comment>();
             Likes = new HashSet<Like>();
+            Tags = new HashSet<Tag>();
         }
 
         public string? Title { get; set; }
@@ -20,5 +21,6 @@ namespace YourTube.Api.Models
         public ICollection<Comment>? Comments { get; set; }
         public ICollection<Favorite>? Favorites { get; set; }
         public ICollection<Like>? Likes { get; set; }
+        public ICollection<Tag>? Tags { get; set; }
     }
 }

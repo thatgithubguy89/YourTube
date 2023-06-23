@@ -8,11 +8,13 @@ import { Comment } from "../../models/Comment";
 import { Likes } from "./Likes";
 import { Dislikes } from "./Dislikes";
 import { SaveButton } from "./SaveButton";
+import { Tag } from "../../models/Tag";
 
 export const Player = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [video, setVideo] = useState<Video | any>(null);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [tags, setTags] = useState<Tag[]>([]);
   const { id } = useParams();
   const username = localStorage.getItem("username");
   const token = localStorage.getItem("token");
@@ -23,6 +25,7 @@ export const Player = () => {
       .then((response) => {
         setVideo(response.data);
         setComments(response.data.comments);
+        setTags(response.data.tags);
         setIsLoading(false);
       })
       .catch((error) => console.log(error));
@@ -62,6 +65,12 @@ export const Player = () => {
           ></video>
         </div>
         <small className="me-5">{video.views} Views</small>
+        {tags.map((tag) => (
+          <small className="me-3">
+            #{tag.name}
+            {"     "}
+          </small>
+        ))}
         <Likes likes={video.liked} videoId={video.id} />
         <Dislikes dislikes={video.disliked} videoId={video.id} />
         <SaveButton videoId={Number(id)} />

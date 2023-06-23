@@ -6,5 +6,6 @@ namespace YourTube.Api.Models.Requests
     {
         public VideoDto Video { get; set; }
         public IFormFile File { get; set; }
+        public List<TagDto> Tags { get; set; }
     }
 }

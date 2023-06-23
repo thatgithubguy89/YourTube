@@ -8,6 +8,7 @@ namespace YourTube.Api.Models.Dtos
         public VideoDto()
         {
             Comments = new HashSet<CommentDto>();
+            Tags = new HashSet<TagDto>();
         }
 
         public string? Title { get; set; }
@@ -18,5 +19,6 @@ namespace YourTube.Api.Models.Dtos
         public int UserId { get; set; }
         public UserDto? User { get; set; }
         public ICollection<CommentDto>? Comments { get; set; }
+        public ICollection<TagDto>? Tags { get; set; }
     }
 }

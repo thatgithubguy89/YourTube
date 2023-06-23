@@ -12,6 +12,7 @@ namespace YourTube.Api.Extensions
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
             services.AddScoped<ILikeRepository, LikeRepository>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ITagRepository, TagRepository>();
             services.AddScoped<ITrendingRepository, TrendingRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IVideoRepository, VideoRepository>();
