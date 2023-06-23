@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using YourTube.Api.Data;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Requests;
-using YourTube.Api.Services;
 using BCryptNet = BCrypt.Net.BCrypt;
 
 namespace YourTube.Api.Repositories

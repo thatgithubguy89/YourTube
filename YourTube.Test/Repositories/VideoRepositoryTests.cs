@@ -3,13 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using YourTube.Api.Data;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Dtos;
 using YourTube.Api.Models.Requests;
 using YourTube.Api.Profiles;
 using YourTube.Api.Repositories;
-using YourTube.Api.Services;
 
 namespace YourTube.Test.Repositories
 {

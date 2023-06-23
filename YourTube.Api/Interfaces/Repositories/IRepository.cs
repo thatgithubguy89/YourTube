@@ -1,4 +1,4 @@
-﻿namespace YourTube.Api.Interfaces
+﻿namespace YourTube.Api.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {

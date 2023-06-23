@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Dtos;
 

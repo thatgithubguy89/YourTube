@@ -1,4 +1,4 @@
-﻿namespace YourTube.Api.Services
+﻿namespace YourTube.Api.Interfaces.Services
 {
     public interface IFileService
     {

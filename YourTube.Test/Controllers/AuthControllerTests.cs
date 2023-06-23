@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using YourTube.Api.Interfaces;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Requests;
 using YourTube.Api.Models.Responses;
-using YourTube.Api.Services;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 
 namespace YourTube.Test.Controllers
 {

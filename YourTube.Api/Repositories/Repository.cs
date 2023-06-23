@@ -1,6 +1,6 @@
 ﻿using YourTube.Api.Data;
 using Microsoft.EntityFrameworkCore;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
 
 namespace YourTube.Api.Repositories
 {

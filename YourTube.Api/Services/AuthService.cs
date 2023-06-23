@@ -2,8 +2,9 @@
 using BCryptNet = BCrypt.Net.BCrypt;
 using YourTube.Api.Models.Requests;
 using YourTube.Api.Models.Responses;
-using YourTube.Api.Interfaces;
 using System.Text.Json;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 
 namespace YourTube.Api.Services
 {

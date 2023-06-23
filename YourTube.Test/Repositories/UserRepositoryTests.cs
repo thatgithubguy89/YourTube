@@ -8,11 +8,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using YourTube.Api.Data;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Requests;
 using YourTube.Api.Repositories;
-using YourTube.Api.Services;
 
 namespace YourTube.Test.Repositories
 {

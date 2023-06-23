@@ -1,7 +1,7 @@
 ﻿using YourTube.Api.Models;
 using YourTube.Api.Models.Requests;
 
-namespace YourTube.Api.Interfaces
+namespace YourTube.Api.Interfaces.Repositories
 {
     public interface IUserRepository : IRepository<User>
     {

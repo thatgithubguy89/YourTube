@@ -1,4 +1,5 @@
-﻿using YourTube.Api.Interfaces;
+﻿using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Repositories;
 using YourTube.Api.Services;
 
@@ -21,6 +22,7 @@ namespace YourTube.Api.Extensions
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped(typeof(ICacheService<>), typeof(CacheService<>));
             services.AddScoped<IFileService, FileService>();
+            services.AddScoped<IRecommendService, RecommendService>();
 
             return services;
         }

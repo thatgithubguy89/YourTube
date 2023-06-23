@@ -2,12 +2,12 @@
 using Moq;
 using Microsoft.Extensions.Logging;
 using YourTube.Api.Controllers;
-using YourTube.Api.Interfaces;
 using YourTube.Api.Profiles;
 using YourTube.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using YourTube.Api.Models.Dtos;
+using YourTube.Api.Interfaces.Repositories;
 
 namespace YourTube.Test.Controllers
 {

@@ -1,8 +1,8 @@
-﻿using YourTube.Api.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using YourTube.Api.Models.Requests;
 using YourTube.Api.Models.Responses;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 
 namespace YourTube.Api.Controllers
 {

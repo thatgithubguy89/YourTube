@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Moq;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Services;
 
 namespace YourTube.Test.Services

@@ -7,7 +7,7 @@ using AutoMapper;
 using Microsoft.Extensions.Logging;
 using Moq;
 using YourTube.Api.Profiles;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
 
 namespace YourTube.Test.Controllers
 {

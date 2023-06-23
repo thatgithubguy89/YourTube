@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
 using YourTube.Api.Controllers;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Dtos;
 using YourTube.Api.Profiles;

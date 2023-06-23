@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using YourTube.Api.Data;
-using YourTube.Api.Interfaces;
+using YourTube.Api.Interfaces.Repositories;
+using YourTube.Api.Interfaces.Services;
 using YourTube.Api.Models;
 using YourTube.Api.Models.Requests;
-using YourTube.Api.Services;
 
 namespace YourTube.Api.Repositories
 {
@@ -71,6 +71,7 @@ namespace YourTube.Api.Repositories
 
             videos = await _context.Videos.OrderByDescending(v => v.Views)
                                           .OrderByDescending(v => v.CreateTime)
+                                          .Include(v => v.Tags)
                                           .Include(v => v.User)
                                           .ToListAsync();
 
