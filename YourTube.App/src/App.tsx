@@ -11,29 +11,26 @@ import { Favorites } from "./pages/Favorites";
 import { Trending } from "./pages/Trending";
 import { SearchBox } from "./components/common/SearchBox";
 import { NotFound } from "./components/common/NotFound";
-import { VideoProvider } from "./stores/VideoProvider";
 
 function App() {
   return (
     <div>
-      <VideoProvider>
-        <BrowserRouter>
-          <NavBar />
-          <SearchBox />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/:searchphrase" element={<Home />} />
-            <Route path="/userprofile" element={<UserProfile />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/signin" element={<Signin />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/trending" element={<Trending />} />
-            <Route path="/addvideo/:userid" element={<AddVideo />} />
-            <Route path="/videodetail/:id" element={<VideoDetail />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </VideoProvider>
+      <BrowserRouter>
+        <NavBar />
+        <SearchBox />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:searchphrase" element={<Home />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/favorites" element={<Favorites />} />
+          <Route path="/signin" element={<Signin />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/trending" element={<Trending />} />
+          <Route path="/addvideo/:userid" element={<AddVideo />} />
+          <Route path="/videodetail/:id" element={<VideoDetail />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
