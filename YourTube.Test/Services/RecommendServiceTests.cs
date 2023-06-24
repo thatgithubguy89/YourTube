@@ -43,7 +43,8 @@ namespace YourTube.Test.Services
         {
             new Video { Id = 1, Title = "test 1", User = new User { Id = 1 }, Comments = new List<Comment>(), Tags = _mockTags1 },
             new Video { Id = 2, Title = "test 2", User = new User { Id = 2 }, Comments = new List<Comment>(), Tags = _mockTags2 },
-            new Video { Id = 3, Title = "test 3", User = new User { Id = 3 }, Comments = new List<Comment>(), Tags = _mockTags3 }
+            new Video { Id = 3, Title = "test 3", User = new User { Id = 3 }, Comments = new List<Comment>(), Tags = _mockTags3 },
+            new Video { Id = 4, Title = "test 4", User = new User { Id = 3 }, Comments = new List<Comment>(), Tags = _mockTags2 }
         };
 
         public RecommendServiceTests()
@@ -57,7 +58,7 @@ namespace YourTube.Test.Services
         [Fact]
         public async Task GetRecommendedVideosAsync()
         {
-            var result = await _recommendService.GetRecommendedVideosAsync(_mockTags);
+            var result = await _recommendService.GetRecommendedVideosAsync(4, _mockTags);
 
             Assert.Equal(2, result.Count);
             Assert.Equal(1, result[0].Id);

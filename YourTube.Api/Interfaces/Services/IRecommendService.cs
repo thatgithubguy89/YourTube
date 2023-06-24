@@ -4,6 +4,6 @@ namespace YourTube.Api.Interfaces.Services
 {
     public interface IRecommendService
     {
-        Task<List<Video>> GetRecommendedVideosAsync(List<Tag> tags);
+        Task<List<Video>> GetRecommendedVideosAsync(int videoId, List<Tag> tags);
     }
 }

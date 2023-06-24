@@ -25,7 +25,7 @@ namespace YourTube.Test.Controllers
             _mockLogger = new Mock<ILogger<RecommendController>>();
 
             _mockRecommendService = new Mock<IRecommendService>();
-            _mockRecommendService.Setup(r => r.GetRecommendedVideosAsync(It.IsAny<List<Tag>>())).Returns(Task.FromResult(new List<Video>()));
+            _mockRecommendService.Setup(r => r.GetRecommendedVideosAsync(It.IsAny<int>(), It.IsAny<List<Tag>>())).Returns(Task.FromResult(new List<Video>()));
         }
 
         [Fact]
@@ -33,7 +33,7 @@ namespace YourTube.Test.Controllers
         {
             var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
 
-            var actionResult = await _recommendController.GetRecommendedVideos(new List<TagDto>());
+            var actionResult = await _recommendController.GetRecommendedVideos(It.IsAny<int>(), new List<TagDto>());
             var result = actionResult as OkObjectResult;
 
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
@@ -44,9 +44,9 @@ namespace YourTube.Test.Controllers
         public async Task GetRecommendedVideos_Failure_ReturnsInternalServerError()
         {
             var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
-            _mockRecommendService.Setup(r => r.GetRecommendedVideosAsync(It.IsAny<List<Tag>>())).Throws(new Exception());
+            _mockRecommendService.Setup(r => r.GetRecommendedVideosAsync(It.IsAny<int>(), It.IsAny<List<Tag>>())).Throws(new Exception());
 
-            var actionResult = await _recommendController.GetRecommendedVideos(new List<TagDto>());
+            var actionResult = await _recommendController.GetRecommendedVideos(It.IsAny<int>(), new List<TagDto>());
             var result = actionResult as ObjectResult;
 
             Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);

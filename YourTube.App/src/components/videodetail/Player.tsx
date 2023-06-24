@@ -9,6 +9,7 @@ import { Likes } from "./Likes";
 import { Dislikes } from "./Dislikes";
 import { SaveButton } from "./SaveButton";
 import { Tag } from "../../models/Tag";
+import { RecommendedList } from "./RecommendedList";
 
 export const Player = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -52,17 +53,24 @@ export const Player = () => {
     return <Loader />;
   } else {
     return (
-      <div>
-        <div
-          className="me-5 rounded"
-          style={{ border: "1px solid white", height: "600px", width: "800px" }}
-        >
-          <video
-            controls
-            width={"100%"}
-            height={"100%"}
-            src={`${import.meta.env.VITE_VIDEO_PATH_URL}${video.videoUrl}`}
-          ></video>
+      <div className="container">
+        <div className="container d-flex mt-5">
+          <div
+            className="me-5 rounded"
+            style={{
+              border: "1px solid white",
+              height: "600px",
+              width: "800px",
+            }}
+          >
+            <video
+              controls
+              width={"100%"}
+              height={"100%"}
+              src={`${import.meta.env.VITE_VIDEO_PATH_URL}${video.videoUrl}`}
+            ></video>
+          </div>
+          <RecommendedList videoId={Number(id)} tags={tags} />
         </div>
         <small className="me-5">{video.views} Views</small>
         {tags.map((tag, index) => (

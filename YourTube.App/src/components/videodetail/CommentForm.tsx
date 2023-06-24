@@ -28,7 +28,7 @@ export const CommentForm = ({ videoId }: Props) => {
     <form onSubmit={handleSubmit} className="mt-3">
       <input
         style={{ backgroundColor: "black", color: "white" }}
-        className="form-control"
+        className="form-control w-50"
         placeholder="Add a comment..."
         onChange={(e) => setContent(e.target.value)}
       />
