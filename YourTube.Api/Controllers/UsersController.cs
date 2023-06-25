@@ -32,7 +32,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Getting user {username}");
+                _logger.LogInformation("Getting user", username);
 
                 if (string.IsNullOrWhiteSpace(username))
                     return BadRequest();
@@ -45,7 +45,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to get user {username}: ", ex.Message);
+                _logger.LogError("Failed to get user: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -61,7 +61,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Deleting user with the id of {id}");
+                _logger.LogInformation("Deleting user");
 
                 if (id <= 0)
                     return BadRequest();
@@ -76,7 +76,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to delete user with the id of {id}", ex.Message);
+                _logger.LogError("Failed to delete user: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

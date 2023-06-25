@@ -7,6 +7,7 @@ using YourTube.Api.Models.Dtos;
 
 namespace YourTube.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LikesController : ControllerBase
@@ -22,8 +23,8 @@ namespace YourTube.Api.Controllers
             _mapper = mapper;
         }
 
-        [Authorize]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -31,7 +32,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Adding like");
+                _logger.LogInformation("Adding like");
 
                 if (likeDto == null)
                     return BadRequest();
@@ -46,7 +47,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to add like:", ex.Message);
+                _logger.LogError("Failed to add like: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

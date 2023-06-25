@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using YourTube.Api.Models.Dtos;
-using YourTube.Api.Repositories;
 using AutoMapper;
 using YourTube.Api.Interfaces.Repositories;
 

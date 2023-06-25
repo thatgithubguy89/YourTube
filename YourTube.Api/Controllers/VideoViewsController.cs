@@ -44,7 +44,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogInformation("Failed to create video view");
+                _logger.LogInformation("Failed to create video view: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

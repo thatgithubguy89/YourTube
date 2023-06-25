@@ -7,6 +7,7 @@ using YourTube.Api.Models.Dtos;
 
 namespace YourTube.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase
@@ -25,7 +26,6 @@ namespace YourTube.Api.Controllers
             _logger = logger;
         }
 
-        [Authorize]
         [HttpGet("{username}")]
         [ProducesResponseType(typeof(VideoDto), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -34,7 +34,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Getting favorite videos for user {username ?? "unkown"}");
+                _logger.LogInformation("Getting favorite videos for user: ", username ?? "unkown");
 
                 if (string.IsNullOrWhiteSpace(username))
                     return BadRequest();
@@ -45,13 +45,12 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to get favorite videos for user {username ?? "unknown"}: ", ex.Message);
+                _logger.LogError("Failed to get favorite videos", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-        [Authorize]
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -60,7 +59,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Creating favorite");
+                _logger.LogInformation("Creating favorite");
 
                 if (favorite == null)
                     return BadRequest();
@@ -71,13 +70,12 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to create favorite: ", ex.Message);
+                _logger.LogError("Failed to create favorite: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
-        [Authorize]
         [HttpDelete]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -86,7 +84,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Deleting favorite");
+                _logger.LogInformation("Deleting favorite");
 
                 if (favorite == null)
                     return BadRequest();
@@ -97,7 +95,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to delete: ", ex.Message);
+                _logger.LogError("Failed to delete: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

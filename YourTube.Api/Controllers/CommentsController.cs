@@ -31,7 +31,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Adding comment");
+                _logger.LogInformation("Adding comment");
 
                 if (commentDto == null)
                     return BadRequest();
@@ -42,7 +42,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to add comment: ", ex.Message);
+                _logger.LogError("Failed to add comment: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

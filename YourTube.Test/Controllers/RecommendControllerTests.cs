@@ -33,11 +33,35 @@ namespace YourTube.Test.Controllers
         {
             var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
 
-            var actionResult = await _recommendController.GetRecommendedVideos(It.IsAny<int>(), new List<TagDto>());
+            var actionResult = await _recommendController.GetRecommendedVideos(1, new List<TagDto>() { new TagDto() });
             var result = actionResult as OkObjectResult;
 
             Assert.Equal(StatusCodes.Status200OK, result.StatusCode);
             Assert.IsType<List<VideoDto>>(result.Value);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async Task GetRecommendedVideos_GivenInvalidId_ReturnsBadRequest(int id)
+        {
+            var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
+
+            var actionResult = await _recommendController.GetRecommendedVideos(id, new List<TagDto>());
+            var result = actionResult as BadRequestResult;
+
+            Assert.Equal(StatusCodes.Status400BadRequest, result.StatusCode);
+        }
+
+        [Fact]
+        public async Task GetRecommendedVideos_GivenEmptyTags_ReturnsBadRequest()
+        {
+            var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
+
+            var actionResult = await _recommendController.GetRecommendedVideos(1, new List<TagDto>());
+            var result = actionResult as BadRequestResult;
+
+            Assert.Equal(StatusCodes.Status400BadRequest, result.StatusCode);
         }
 
         [Fact]
@@ -46,7 +70,7 @@ namespace YourTube.Test.Controllers
             var _recommendController = new RecommendController(_mockRecommendService.Object, _mockLogger.Object, _mapper);
             _mockRecommendService.Setup(r => r.GetRecommendedVideosAsync(It.IsAny<int>(), It.IsAny<List<Tag>>())).Throws(new Exception());
 
-            var actionResult = await _recommendController.GetRecommendedVideos(It.IsAny<int>(), new List<TagDto>());
+            var actionResult = await _recommendController.GetRecommendedVideos(1, new List<TagDto>() { new TagDto() });
             var result = actionResult as ObjectResult;
 
             Assert.Equal(StatusCodes.Status500InternalServerError, result.StatusCode);

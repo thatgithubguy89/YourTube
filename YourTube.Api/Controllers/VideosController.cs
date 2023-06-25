@@ -52,7 +52,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Getting video with the id of {id}");
+                _logger.LogInformation("Getting video");
 
                 if (id <= 0)
                     return BadRequest();
@@ -65,7 +65,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to get video with the id of {id}: ", ex.Message);
+                _logger.LogError("Failed to get video: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -80,7 +80,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Adding video");
+                _logger.LogInformation("Adding video");
 
                 if (addVideoRequest == null)
                     return BadRequest();
@@ -91,7 +91,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to add video: ", ex.Message);
+                _logger.LogError("Failed to add video: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
@@ -107,7 +107,7 @@ namespace YourTube.Api.Controllers
         {
             try
             {
-                _logger.LogInformation($"Deleting video with the id of {id}");
+                _logger.LogInformation("Deleting video");
 
                 if (id <= 0)
                     return BadRequest();
@@ -122,7 +122,7 @@ namespace YourTube.Api.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Failed to delete video with the id of {id}: ", ex.Message);
+                _logger.LogError("Failed to delete video: ", ex.Message);
 
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }

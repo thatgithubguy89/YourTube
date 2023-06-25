@@ -23,12 +23,18 @@ namespace YourTube.Api.Controllers
 
         [HttpPost("{videoId}")]
         [ProducesResponseType(typeof(List<VideoDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> GetRecommendedVideos(int videoId, List<TagDto> tags)
         {
             try
             {
                 _logger.LogInformation("Getting recommended videos");
+
+                if (videoId <= 0)
+                    return BadRequest();
+                if (tags.Count == 0)
+                    return BadRequest();
 
                 var videos = await _recommendService.GetRecommendedVideosAsync(videoId, _mapper.Map<List<Tag>>(tags));
 
