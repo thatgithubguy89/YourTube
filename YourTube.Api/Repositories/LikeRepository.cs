@@ -27,14 +27,7 @@ namespace YourTube.Api.Repositories
             if (await HasUserLikedVideoAsync(like.Username, like.VideoId))
                 return null;
 
-            var video = await _videoRepository.GetByIdAsync(like.VideoId);
-            if (video == null)
-                throw new NullReferenceException();
-
-            video.Liked += like.Liked ? 1 : 0;
-            video.Disliked += like.Disliked ? 1 : 0;
-
-            await _videoRepository.UpdateAsync(video);
+            await UpdateVideoAsync(like);
 
             var createdLike = await _context.Likes.AddAsync(like);
             await _context.SaveChangesAsync();
@@ -54,6 +47,18 @@ namespace YourTube.Api.Repositories
             var like = await _context.Likes.FirstOrDefaultAsync(l => l.Username == username && l.VideoId == videoId);
 
             return like != null;
+        }
+
+        private async Task UpdateVideoAsync(Like like)
+        {
+            var video = await _videoRepository.GetByIdAsync(like.VideoId);
+            if (video == null)
+                throw new NullReferenceException();
+
+            video.Liked += like.Liked ? 1 : 0;
+            video.Disliked += like.Disliked ? 1 : 0;
+
+            await _videoRepository.UpdateAsync(video);
         }
     }
 }

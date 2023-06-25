@@ -46,6 +46,9 @@ namespace YourTube.Test.Repositories
         [Fact]
         public async Task AddLikeAsync()
         {
+            await _context.Videos.AddAsync(_mockVideo);
+            await _context.SaveChangesAsync();
+
             await _likeRepository.AddAsync(_mockLike);
             var result = await _likeRepository.GetByIdAsync(_mockLike.Id);
 
@@ -54,17 +57,41 @@ namespace YourTube.Test.Repositories
         }
 
         [Fact]
+        public async Task AddLikeAsync_GivenUserHasAlreadyVoted_ReturnsNull()
+        {
+            await _context.Likes.AddAsync(_mockLike);
+            await _context.SaveChangesAsync();
+
+            var result = await _likeRepository.AddAsync(_mockLike);
+
+            Assert.Null(result);
+        }
+
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public async Task AddLikeAsync_GivenInvalidId_ThrowsArgumentNullException(int id)
+        {
+            _mockLike.VideoId = id;
+
+            await Assert.ThrowsAsync<ArgumentOutOfRangeException>(async () => await _likeRepository.AddAsync(_mockLike));
+        }
+
+        [Fact]
         public async Task AddLikeAsync_GivenInvalidLike_ThrowsArgumentNullException()
         {
             await Assert.ThrowsAsync<ArgumentNullException>(async () => await _likeRepository.AddAsync(null));
         }
 
-        [Fact]
-        public async Task AddLikeAsync_GivenInvalidLike_ThrowsNullReferenceException()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public async Task AddLikeAsync_GivenInvalidUsername_ThrowsArgumentNullException(string username)
         {
-            _mockVideoRepository.Setup(v => v.GetByIdAsync(It.IsAny<int>())).Returns(Task.FromResult((Video?)null));
+            _mockLike.Username = username;
 
-            await Assert.ThrowsAsync<NullReferenceException>(async () => await _likeRepository.AddAsync(_mockLike));
+            await Assert.ThrowsAsync<ArgumentNullException>(async () => await _likeRepository.AddAsync(_mockLike));
         }
     }
 }
